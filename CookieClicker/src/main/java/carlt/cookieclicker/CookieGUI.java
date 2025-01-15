@@ -5,6 +5,7 @@
 package carlt.cookieclicker;
 
 // Imports
+import java.awt.Dimension;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -25,8 +26,6 @@ import javax.swing.border.EmptyBorder;
  */
 public final class CookieGUI extends MouseAdapter {
 
-    private static final long serialVersionUID = 1L;
-
     // Attributes
     private ImageIcon iconImg;
     private JFrame cookieFrame;
@@ -46,17 +45,25 @@ public final class CookieGUI extends MouseAdapter {
         // Configure main frame.
         cookieFrame = new JFrame("Cookie Clicker");
         cookieFrame.setIconImage(iconImg.getImage());
-        cookieFrame.setSize(750, 750);
+        cookieFrame.setSize(1000, 750);
         cookieFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        cookieFrame.setResizable(false);
+        cookieFrame.setResizable(true);
+        cookieFrame.setLocationRelativeTo(null);
+        
+        BackgroundImage bg = new BackgroundImage("Assets/cookies_falling.gif");
+        bg.setPreferredSize(new Dimension(1000, 750));
 
         // Create JPanel and configure its appearance.
-        cookiePanel = new JPanel();
-        cookiePanel.setBackground(new Color(33, 90, 127));
-        cookiePanel.setLayout(new BorderLayout());
+        cookiePanel = new JPanel(new BorderLayout());
         cookiePanel.setOpaque(true);
-        cookiePanel.setSize(750, 750);
+        cookiePanel.setBackground(new Color(33, 90, 127));
+        cookiePanel.setSize(cookieFrame.getWidth(), cookieFrame.getHeight());
+        //System.out.println("Cookie panel size: " + cookiePanel.getSize());
         cookiePanel.setVisible(true);
+        
+        cookiePanel.add(bg, BorderLayout.CENTER);
+        cookiePanel.revalidate();
+        cookiePanel.repaint();
         
         // Creates title label and configures its appearance
         titleLabel = new JLabel("Cookie Clicker");
@@ -123,6 +130,7 @@ public final class CookieGUI extends MouseAdapter {
 
         // Add the cookie panel to mainFrame.
         cookieFrame.add(cookiePanel);
+        cookieFrame.repaint();
         cookieFrame.setVisible(true);
 
     }
